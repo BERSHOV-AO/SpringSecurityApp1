@@ -1,9 +1,18 @@
 package ru.kata.springsecurityapp1.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
+
+
+//import jakarta.persistence.*;
+//import jakarta.validation.constraints.Min;
+//import jakarta.validation.constraints.NotEmpty;
+//import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Person")
@@ -14,12 +23,11 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов")
+
     @Column(name = "username")
     private String username;
 
-    @Min(value = 1900, message = "Год больше чем 1900")
+
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
