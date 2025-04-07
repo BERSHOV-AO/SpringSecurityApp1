@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // конфигурируем авторизацию
 
         //настройка страницы логина
-        http.csrf().disable()                                                         // временно отключаем токен защиту от межсайтовой подделки запросов
+       // http.csrf().disable()                                                         // временно отключаем токен защиту от межсайтовой подделки запросов
+        http
                 .authorizeRequests()
                 .antMatchers("/auth/login","/auth/registration", "/error").permitAll()               // пускаем любого пользователя на эти две станицы
                 .anyRequest().authenticated()                                         // на все остальные, только авторизованных
