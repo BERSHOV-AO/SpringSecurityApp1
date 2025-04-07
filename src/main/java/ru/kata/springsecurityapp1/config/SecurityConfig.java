@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.springsecurityapp1.services.PersonDetailsService;
@@ -46,13 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // настройка аутентификации
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(personDetailsService);
+        auth.userDetailsService(personDetailsService).passwordEncoder(getPasswordEncoder());   // для использования шфрования при аутентификации
     }
 
     // алгоритм расшифровки пароля
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // не шифруем
+        //return NoOpPasswordEncoder.getInstance(); // не шифруем
+        return new BCryptPasswordEncoder();
     }
 
     //----------------------------------------------------------
