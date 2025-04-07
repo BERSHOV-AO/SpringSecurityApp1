@@ -8,10 +8,6 @@ import org.springframework.validation.Validator;
 import ru.kata.springsecurityapp1.models.Person;
 import ru.kata.springsecurityapp1.services.PersonDetailsService;
 
-
-/**
- * @author Neil Alishev
- */
 @Component
 public class PersonValidator implements Validator {
 
