@@ -7,7 +7,6 @@ import ru.kata.springsecurityapp1.models.Person;
 import java.util.Collection;
 
 public class PersonDetails implements UserDetails {
-
     private final Person person;
 
     public PersonDetails(Person person) {
@@ -50,7 +49,7 @@ public class PersonDetails implements UserDetails {
     }
 
     // Нужно, чтобы получать данные аутентифицированного пользователя
-    public Person getUser() {
+    public Person getPerson() {
         return this.person;
     }
 }

@@ -15,7 +15,6 @@ import java.util.Collections;
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
 
-
     private final PersonDetailsService personDetailsService;
 
     @Autowired
@@ -23,35 +22,26 @@ public class AuthProviderImpl implements AuthenticationProvider {
         this.personDetailsService = personDetailsService;
     }
 
-
-    // Данный метод вызывает сам security
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
 
         UserDetails personDetails = personDetailsService.loadUserByUsername(username);
 
-
-        // получаем паль с authentication
         String password = authentication.getCredentials().toString();
 
-        // теперь нужно сравни
+        System.out.println("password" + password);
+        System.out.println(password.equals(personDetails.getPassword()));
 
-        if (password.equals(personDetails.getPassword())) {
+        if (!password.equals(personDetails.getPassword()))
             throw new BadCredentialsException("Incorrect password");
-        }
 
-
-        // если пароли совпали, возвращаем personDetails самого человека  (personDetails -> PRINCIPAL)
-        // еще список прав Collections.emptyList()/ - в будущем вернем
-
-        // UsernamePasswordAuthenticationToken - реализует Authentication - по этому, можем его вернуть
         return new UsernamePasswordAuthenticationToken(personDetails, password,
                 Collections.emptyList());
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return false;
+        return true;
     }
 }
