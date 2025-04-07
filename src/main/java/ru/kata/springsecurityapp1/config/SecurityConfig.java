@@ -29,16 +29,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // конфигурируем авторизацию
 
         //настройка страницы логина
-        http.csrf().disable()                                                       // временно отключаем токен защиту от межсайтовой подделки запросов
+        http.csrf().disable()                                                         // временно отключаем токен защиту от межсайтовой подделки запросов
                 .authorizeRequests()
                 .antMatchers("/auth/login","/auth/registration", "/error").permitAll()               // пускаем любого пользователя на эти две станицы
-                .anyRequest().authenticated()                                       // на все остальные, только авторизованных
-                .and()                                                              // конкатенация настроек
+                .anyRequest().authenticated()                                         // на все остальные, только авторизованных
+                .and()                                                                // конкатенация настроек
                 .formLogin()
                 .loginPage("/auth/login")
-                .loginProcessingUrl("/process_login")                              // автоматически присылает для сравнения пароля
-                .defaultSuccessUrl("/hello", true)           // после успешной аутентификации перенаправляется на "/hello"
-                .failureUrl("/auth/login?error");                // не успешная аутентиф.
+                .loginProcessingUrl("/process_login")                                  // автоматически присылает для сравнения пароля
+                .defaultSuccessUrl("/hello", true)              // после успешной аутентификации перенаправляется на "/hello"
+                .failureUrl("/auth/login?error")                     // не успешная аутентиф.
+                .and().logout().logoutUrl("/logout")                                   // удаление куки
+                .logoutSuccessUrl("/auth/login");                                      // если разлогинился, переводим на данный url
+
     }
 
     // настройка аутентификации
